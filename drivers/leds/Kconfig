@@ -95,6 +95,13 @@ config LEDS_AW2016
 		this option enables support for the AW2016 RGB LED connected
 		through I2C. Say Y to enable support for the AW2016 LED
 
+config LEDS_AW2013
+	tristate "LED support for AW2013"
+	depends on LEDS_CLASS && I2C
+	help
+	  This option enables support for the AW2013 RGB LED connected
+	  through I2C. Say Y to enable support for the AW2013 LED.
+
 config LEDS_BCM6328
 	tristate "LED Support for Broadcom BCM6328"
 	depends on LEDS_CLASS
@@ -313,6 +320,17 @@ config LEDS_PCA9532_GPIO
 	  set to PCA9532_TYPE_GPIO.
 
 config LEDS_GPIO
+	tristate "LED Support for GPIO connected LEDs"
+	depends on LEDS_CLASS
+	depends on GPIOLIB || COMPILE_TEST
+	help
+	  This option enables support for the LEDs connected to GPIO
+	  outputs. To be useful the particular board must have LEDs
+	  and they must be connected to the GPIO lines.  The LEDs must be
+	  defined as platform devices and/or OpenFirmware platform devices.
+	  The code to use these bindings can be selected below.
+
+config LEDS_GPIO_MARKW
 	tristate "LED Support for GPIO connected LEDs"
 	depends on LEDS_CLASS
 	depends on GPIOLIB || COMPILE_TEST
@@ -852,6 +870,16 @@ config LEDS_QPNP_WLED
 	  Technologies, Inc. QPNP PMICs.  WLED is used for LCD backlight with
 	  variable brightness.  It also supports outputting the Avdd supply for
 	  AMOLED displays.
+
+config LEDS_QPNP_HAPTICS
+	tristate "Haptics support for QPNP PMIC"
+	depends on LEDS_CLASS && MFD_SPMI_PMIC
+	help
+	  This option enables device driver support for the haptics peripheral
+	  found on Qualcomm Technologies, Inc. QPNP PMICs.  The haptic
+	  peripheral is capable of driving both LRA and ERM vibrators.  This
+	  module provides haptic feedback for user actions such as a long press
+	  on the touch screen.
 
 comment "LED Triggers"
 source "drivers/leds/trigger/Kconfig"

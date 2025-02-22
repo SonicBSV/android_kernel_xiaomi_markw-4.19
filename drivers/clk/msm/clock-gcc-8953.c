@@ -388,6 +388,8 @@ static struct clk_freq_tbl ftbl_gfx3d_clk_src[] = {
 	F_MM( 510000000,    1020000000,               gpll3,    1,    0,     0),
 	F_MM( 560000000,    1120000000,               gpll3,    1,    0,     0),
 	F_MM( 650000000,    1300000000,               gpll3,    1,    0,     0),
+	F_MM( 700000000,    1400000000,               gpll3,    1,    0,     0),
+	F_MM( 725000000,    1450000000,               gpll3,    1,    0,     0),
 
 	F_END
 };
@@ -1199,6 +1201,9 @@ static struct rcg_clk camss_gp1_clk_src = {
 };
 
 static struct clk_freq_tbl ftbl_mclk0_clk_src[] = {
+#if defined(CONFIG_MACH_XIAOMI_C6) || defined(CONFIG_MACH_XIAOMI_MARKW)
+	F(  19200000,              xo,    1,    0,     0),
+#endif
 	F(  24000000, gpll6_main_div2,    1,    2,    45),
 	F(  33330000, gpll0_main_div2,   12,    0,     0),
 	F(  36610000, gpll6,		  1,    2,    59),

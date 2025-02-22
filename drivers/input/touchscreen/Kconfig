@@ -1311,6 +1311,17 @@ config TOUCHSCREEN_ROHM_BU21023
 	  To compile this driver as a module, choose M here: the
 	  module will be called bu21023_ts.
 
+config TOUCHSCREEN_GEN_VKEYS
+	tristate "Touchscreen Virtual Keys Driver"
+	help
+         Say Y here if you want to generate a sysfs entry for virtual
+	 keys on Android.
+
+	 If unsure, say N.
+
+	 To compile this driver as a module, choose M here: the
+	 module will be called gen_vkeys.
+
 config TOUCHSCREEN_ST
 	tristate "STMicroelectronics Touchscreen Driver"
 	depends on I2C
@@ -1355,5 +1366,9 @@ source "drivers/input/touchscreen/synaptics_tcm/Kconfig"
 source "drivers/input/touchscreen/focaltech_touch/Kconfig"
 
 source "drivers/input/touchscreen/nt36xxx/Kconfig"
+
+source "drivers/input/touchscreen/Atmel308U/Kconfig"
+
+source "drivers/input/touchscreen/FT5346/Kconfig"
 
 endif

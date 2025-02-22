@@ -16,6 +16,7 @@
 #include <dt-bindings/spmi/spmi.h>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/regulator/qcom,rpm-smd-regulator.h>
+#include <dt-bindings/clock/msm-clocks-8953.h>
 #include <dt-bindings/msm/msm-bus-ids.h>
 
 #define MHZ_TO_MBPS(mhz, w) ((mhz * 1000000 * w) / (1024 * 1024))
@@ -42,22 +43,10 @@
 	firmware: firmware {
 		android {
 			compatible = "android,firmware";
+			boot_devices = "soc/7824900.sdhci";
 			vbmeta {
 				compatible = "android,vbmeta";
 				parts = "vbmeta,boot,system,vendor,dtbo,recovery";
-			};
-
-			fstab {
-				compatible = "android,fstab";
-				vendor {
-					compatible = "android,vendor";
-					dev = "/dev/block/platform/soc/7824900.sdhci/by-name/vendor";
-					type = "ext4";
-					mnt_flags = "ro,barrier=1,discard";
-					fsmgr_flags = "wait,avb";
-					status = "ok";
-				};
-
 			};
 		};
 	};
@@ -118,13 +107,13 @@
 			alloc-ranges = <0 0x00000000 0 0xffffffff>;
 			reusable;
 			alignment = <0 0x400000>;
-			size = <0 0x400000>;
+			size = <0 0x800000>;
 		};
 
 		adsp_mem: adsp_region@0 {
 			compatible = "shared-dma-pool";
 			reusable;
-			size = <0 0x400000>;
+			size = <0 0x800000>;
 		};
 
 		dfps_data_mem: dfps_data_mem@90000000 {
@@ -133,12 +122,12 @@
 			status = "disabled";
 		};
 
-		cont_splash_mem: splash_region@90001000 {
+		cont_splash_mem: splash_region@0x90001000 {
 			reg = <0x0 0x90001000 0x0 0x13ff000>;
 			label = "cont_splash_mem";
 		};
 
-		adsp_shmem_device_mem: adsp_shmem_device_region@c0100000 {
+		adsp_shmem_device_mem: adsp_shmem_device_region@0xc0100000 {
 			compatible = "shared-dma-pool";
 			label = "adsp_shmem_device_mem";
 			reusable;
@@ -201,7 +190,6 @@
 #include "msm8953-cpu.dtsi"
 #include "msm8953-pm.dtsi"
 #include "msm8953-bus.dtsi"
-#include "msm8953-coresight.dtsi"
 #include "msm8953-ion.dtsi"
 #include "msm-arm-smmu-8953.dtsi"
 #include "msm8953-vidc.dtsi"
@@ -926,7 +914,9 @@
 			< 1689600000 4>,
 			< 1804800000 5>,
 			< 1958400000 6>,
-			< 2016000000 7>;
+			< 2016000000 7>,
+			< 2150400000 8>,
+			< 2208000000 9>;
 		qcom,speed0-bin-v0-cci =
 			<          0 0>,
 			<  261120000 1>,
@@ -935,7 +925,9 @@
 			<  675840000 4>,
 			<  721920000 5>,
 			<  783360000 6>,
-			<  806400000 7>;
+			<  806400000 7>,
+			<  860160000 8>,
+			<  883200000 9>;
 		qcom,speed2-bin-v0-cl =
 			<          0 0>,
 			<  652800000 1>,
@@ -944,7 +936,9 @@
 			< 1689600000 4>,
 			< 1804800000 5>,
 			< 1958400000 6>,
-			< 2016000000 7>;
+			< 2016000000 7>,
+			< 2150400000 8>,
+			< 2208000000 9>;
 		qcom,speed2-bin-v0-cci =
 			<          0 0>,
 			<  261120000 1>,
@@ -953,7 +947,9 @@
 			<  675840000 4>,
 			<  721920000 5>,
 			<  783360000 6>,
-			<  806400000 7>;
+			<  806400000 7>,
+			<  860160000 8>,
+			<  883200000 9>;
 		qcom,speed7-bin-v0-cl =
 			<          0 0>,
 			<  652800000 1>,

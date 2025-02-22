@@ -988,3 +988,8 @@ config ICNSS_QMI
 	  over QMI channel.
 
 source "drivers/soc/qcom/wcnss/Kconfig"
+
+config SERIAL_NUM
+	bool "Enable Serial Number Proc Interface"
+	help
+	  Provide a interface for reading CPU serial number
